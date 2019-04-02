@@ -1,0 +1,57 @@
+.credits {
+  padding-top: 1rem;
+}
+
+.nav-tabs {
+  margin-bottom: 0;
+}
+
+.nav-link {
+  cursor: pointer;
+}
+
+.tabs {
+  display: inline-flex;
+  list-style-type: none;
+}
+
+.tabs .tab a {
+  color: darkblue;
+  display: block;
+  width: 100%;
+  height: 100%;
+  padding: 24px 24px 3px 24px;
+  font-size: 26px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  transition: color .28s ease;
+}
+
+.tabs .tab a:hover {
+  font-size: 27px;
+  color: cornflowerblue;
+}
+
+.content {
+  padding: 25px;
+}
+
+.white {
+  background-color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.tabs {
+  background-color: transparent;
+}
+
+.header {
+  padding: 10px;
+}
+
+.divtoggle {
+  display: none;
+}
+
+button {
+  font-size: 20px;
+}

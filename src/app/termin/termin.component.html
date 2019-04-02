@@ -1,0 +1,87 @@
+<!-- <form (submit)="sendData($event)"> -->
+<div class="col-md-6">
+  <div class="col-md-12">
+    <h4>Please select the City</h4>
+    <mat-form-field>
+      <mat-select matSearchable placeholder="Stadt auswählen" [(value)]="selected"
+        (selectionChange)="onChangeCityApi($event)">
+        <mat-searchable-input placeholder="Search.."></mat-searchable-input>
+        <ng-container *ngFor="let city of citiesApiInformation; let id=index">
+          <mat-option *matSearchableItem [value]="id">
+            {{ city.CityName }}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+      <span>{{ distanceApiInfo }}</span>
+    </mat-form-field>
+    <input type="text" hidden name="fromcity" id="fromcity" value="{{ relateCityApiInfo }}">
+  </div>
+
+  <mat-radio-group style="display:grid;" class="example-radio-group col-md-12" [(ngModel)]="selectedCity" name="name"
+    #name="ngModel" (change)="onChangeRadioApi($event)">
+    <!-- <br>TODO: remove this: {{ spy.className }} -->
+    <!-- <div [hidden]="name.pristine" class="alert alert-danger">
+      Successful Selected!!!
+    </div> -->
+    <mat-radio-button class="example-radio-button" *ngFor="let c of cityApiInfo; let id_rel=index" [value]="id_rel">
+      <div class="cityDiv">
+        <p>{{ c.RelateCity }} - {{ c.Distance }} km</p>
+        <p>{{ c.Address }}</p>
+      </div>
+    </mat-radio-button>
+  </mat-radio-group>
+  <input type="text" hidden name="tocity" id="tocity" value="{{ radioCity }}">
+  <input type="text" hidden name="todistance" id="todistance" value="{{ radioDistance }}">
+  <input type="text" hidden name="toaddress" id="toaddress" value="{{ radioAddress }}">
+</div>
+
+<div class="col-md-6">
+  <h4>Please input your detail</h4>
+  <div>
+    <mat-form-field>
+      <mat-select placeholder="Date" #status1 required>
+        <mat-option *ngFor="let date of dayApi; let id_date=index" value="{{ id_date }}">{{ date }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <input type="text" hidden name="date" id="date" value="{{ dayApi[status1.value] }}">
+
+  <div>
+    <mat-form-field>
+      <mat-select placeholder="Time" #status required>
+        <mat-option *ngFor="let time of timeApi; let id_time=index" value="{{ id_time }}">{{ time }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <input type="text" hidden name="time" id="time" value="{{ timeApi[status.value] }}">
+
+  <div class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="firstname" name="firstname" id="firstname" required>
+    </mat-form-field>
+  </div>
+
+  <div class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="lastname" name="lastname" id="lastname" required>
+    </mat-form-field>
+  </div>
+
+  <div class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput type="tel" placeholder="phone number" name="phone" id="phone" required>
+    </mat-form-field>
+  </div>
+
+  <div class="example-form">
+    <mat-form-field class="example-full-width">
+      <input matInput type="email" placeholder="email" name="email" id="email" required>
+    </mat-form-field>
+  </div>
+
+  <div class="booking">
+    <button mat-raised-button color="primary" type="submit">Book an appointment</button>
+  </div>
+</div>
+
+<!-- </form> -->

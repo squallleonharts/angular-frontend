@@ -1,0 +1,26 @@
+.example-radio-button {
+  border: 2px solid #1f2ce7;
+  padding: 3px;
+  margin-bottom: 3px;
+}
+
+.example-radio-button:hover {
+  border: 2px solid #949aeb;
+  padding: 3px;
+  margin-bottom: 3px;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 300px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.booking {
+  text-align: center;
+  margin: 20px;
+}

@@ -1,0 +1,68 @@
+{
+  "Brand": [
+    {
+      "Model": [
+        {
+          "Year": [
+            "Eshkashem",
+            "Fayzabad",
+            "Jurm",
+            "Khandud",
+            "Qal'eh-ye Panjeh"
+          ],
+          "ModelName": "Badakhshan"
+        },
+        {
+          "Year": [
+            "Bala Morghab",
+            "Qal'eh-ye Naw"
+          ],
+          "ModelName": "Badgis"
+        },
+        {
+          "Year": [
+            "Andarab",
+            "Baghlan",
+            "Dahaneh-ye Ghawri",
+            "Nahrin",
+            "Pol-e Khumri"
+          ],
+          "ModelName": "Baglan"
+        }
+      ],
+      "BrandName": "Afghanistan"
+    },
+    {
+      "Model": [
+        {
+          "Year": [
+            "Eshkashem",
+            "Fayzabad",
+            "Jurm",
+            "Khandud",
+            "Qal'eh-ye Panjeh"
+          ],
+          "ModelName": "Badakhshan"
+        },
+        {
+          "Year": [
+            "Bala Morghab",
+            "Qal'eh-ye Naw"
+          ],
+          "ModelName": "Badgis"
+        },
+        {
+          "Year": [
+            "Andarab",
+            "Baghlan",
+            "Dahaneh-ye Ghawri",
+            "Nahrin",
+            "Pol-e Khumri"
+          ],
+          "ModelName": "Baglan"
+        }
+      ],
+      "BrandName": "Afghanistan"
+    }
+  ]
+}

@@ -1,0 +1,277 @@
+{
+  "CityCategory": [{
+      "City": [{
+          "RelateCity": "Aachen",
+          "Distance": "0",
+          "Address": "Neuenhofstraße 191, 52078 Aachen"
+        },
+        {
+          "RelateCity": "Düren",
+          "Distance": "23",
+          "Address": "Lagerstraße 3, 52351 Düren"
+        },
+        {
+          "RelateCity": "Köln-Brühl",
+          "Distance": "53",
+          "Address": "Gleueler Weg 5, 50321 Brühl"
+        },
+        {
+          "RelateCity": "Mönchengladbach-Ost",
+          "Distance": "55",
+          "Address": "Krefelder Straße 510, 41066 Mönchengladbach"
+        }
+      ],
+      "CityName": "Aachen"
+    },
+    {
+      "City": [{
+          "RelateCity": "Arnsberg",
+          "Distance": "0",
+          "Address": "Im Ohl 4, 59757 Arnsberg"
+        },
+        {
+          "RelateCity": "Kamen",
+          "Distance": "22",
+          "Address": "Unnaer Straße 97, 59174 Kamen"
+        },
+        {
+          "RelateCity": "Brackel",
+          "Distance": "25",
+          "Address": "Heßlingsweg 71, 44309 Dortmund"
+        },
+        {
+          "RelateCity": "Dortmund-Brackel",
+          "Distance": "29",
+          "Address": "Heßlingsweg 71, 44309 Dortmund"
+        },
+        {
+          "RelateCity": "Dortmund-Dorstfeld",
+          "Distance": "88",
+          "Address": "Planetenfeldstraße 118, 44379 Dortmund"
+        }
+      ],
+      "CityName": "Arnsberg"
+    },
+    {
+      "City": [{
+          "RelateCity": "Aschaffenburg",
+          "Distance": "0",
+          "Address": "Auhofstraße 2a, 63741 Aschaffenburg"
+        },
+        {
+          "RelateCity": "Hanau",
+          "Distance": "24",
+          "Address": "Martin-Luther-King-Straße 4, 63452 Hanau"
+        },
+        {
+          "RelateCity": "Uanau",
+          "Distance": "28",
+          "Address": "Martin-Luther-King-Straße 4, 63452 Hanau"
+        },
+        {
+          "RelateCity": "Offenbach",
+          "Distance": "31",
+          "Address": "Sprendlinger Landstraße 173 a, 63069 Offenbach am Main"
+        },
+        {
+          "RelateCity": "Darmstadt",
+          "Distance": "37",
+          "Address": "Frankfurter Straße 97 64293"
+        }
+      ],
+      "CityName": "Aschaffenburg"
+    },
+    {
+      "City": [{
+          "RelateCity": "Aschaffenburg",
+          "Distance": "0",
+          "Address": "Auhofstraße 2a, 63741 Aschaffenburg"
+        },
+        {
+          "RelateCity": "Kanau",
+          "Distance": "24",
+          "Address": "Martin-Luther-King-Straße 4, 63452 Hanau"
+        },
+        {
+          "RelateCity": "Hanau",
+          "Distance": "24",
+          "Address": "Martin-Luther-King-Straße 4, 63452 Hanau"
+        },
+        {
+          "RelateCity": "Offenbach",
+          "Distance": "31",
+          "Address": "Runberg Landstraße 173 a, 63069 Offenbach am Main"
+        },
+        {
+          "RelateCity": "Darmstadt",
+          "Distance": "37",
+          "Address": "Frankfurter Straße 97 64293"
+        }
+      ],
+      "CityName": "Augsburg"
+    },
+    {
+      "City": [{
+          "RelateCity": "Aschaffenburg",
+          "Distance": "0",
+          "Address": "Auhofstraße 2a, 63741 Aschaffenburg"
+        },
+        {
+          "RelateCity": "Offenbach",
+          "Distance": "31",
+          "Address": "Runberg Landstraße 173 a, 63069 Offenbach am Main"
+        },
+        {
+          "RelateCity": "Darmstadt",
+          "Distance": "37",
+          "Address": "Frankfurter Straße 97 64293"
+        }
+      ],
+      "CityName": "Minden"
+    },
+    {
+      "City": [{
+          "RelateCity": "Aschaffenburg",
+          "Distance": "0",
+          "Address": "Auhofstraße 2a, 63741 Aschaffenburg"
+        },
+        {
+          "RelateCity": "Hanau",
+          "Distance": "24",
+          "Address": "Martin-Luther-King-Straße 4, 63452 Hanau"
+        },
+        {
+          "RelateCity": "Offenbach",
+          "Distance": "31",
+          "Address": "Sprendlinger Landstraße 173 a, 63069 Offenbach am Main"
+        },
+        {
+          "RelateCity": "Darmstadt",
+          "Distance": "48",
+          "Address": "Frankfurter Straße 97 64293"
+        }
+      ],
+      "CityName": "Bautzen"
+    },
+    {
+      "City": [{
+          "RelateCity": "Aschaffenburg",
+          "Distance": "0",
+          "Address": "Auhofstraße 2a, 63741 Aschaffenburg"
+        },
+        {
+          "RelateCity": "Asjering",
+          "Distance": "24",
+          "Address": "Martin-Luther-King-Straße 4, 63452 Asjering"
+        },
+        {
+          "RelateCity": "Offenbach",
+          "Distance": "31",
+          "Address": "Sprendlinger Landstraße 173 a, 63069 Offenbach am Main"
+        },
+        {
+          "RelateCity": "Darmstadt",
+          "Distance": "48",
+          "Address": "Frankfurter Straße 97 64293"
+        }
+      ],
+      "CityName": "Bayreuth"
+    },
+    {
+      "City": [{
+          "RelateCity": "Aschaffenburg",
+          "Distance": "0",
+          "Address": "Auhofstraße 2a, 63741 Aschaffenburg"
+        },
+        {
+          "RelateCity": "Asjering",
+          "Distance": "24",
+          "Address": "Martin-Luther-King-Straße 4, 63452 Asjering"
+        },
+        {
+          "RelateCity": "Offenbach",
+          "Distance": "31",
+          "Address": "Sprendlinger Landstraße 173 a, 63069 Offenbach am Main"
+        },
+        {
+          "RelateCity": "Darmstadt",
+          "Distance": "48",
+          "Address": "Frankfurter Straße 97 64293"
+        }
+      ],
+      "CityName": "Berlin"
+    },
+    {
+      "City": [{
+          "RelateCity": "Aschaffenburg",
+          "Distance": "0",
+          "Address": "Auhofstraße 2a, 63741 Aschaffenburg"
+        },
+        {
+          "RelateCity": "Hanau",
+          "Distance": "24",
+          "Address": "Martin-Luther-King-Straße 4, 63452 Hanau"
+        },
+        {
+          "RelateCity": "Hanau",
+          "Distance": "24",
+          "Address": "Martin-Luther-King-Straße 4, 63452 Hanau"
+        },
+        {
+          "RelateCity": "Offenbach",
+          "Distance": "31",
+          "Address": "Sprendlinger Landstraße 173 a, 63069 Offenbach am Main"
+        },
+        {
+          "RelateCity": "Darmstadt",
+          "Distance": "48",
+          "Address": "Frankfurter Straße 97 64293"
+        }
+      ],
+      "CityName": "Bielefeld"
+    },
+    {
+      "City": [{
+          "RelateCity": "Aschaffenburg",
+          "Distance": "0",
+          "Address": "Auhofstraße 2a, 63741 Aschaffenburg"
+        },
+        {
+          "RelateCity": "Offenbach",
+          "Distance": "31",
+          "Address": "Sprendlinger Landstraße 173 a, 63069 Offenbach am Main"
+        },
+        {
+          "RelateCity": "Darmstadt",
+          "Distance": "37",
+          "Address": "Burandenberg Straße 97 64293"
+        }
+      ],
+      "CityName": "Bamberg"
+    },
+    {
+      "City": [{
+          "RelateCity": "Aschaffenburg",
+          "Distance": "0",
+          "Address": "Auhofstraße 2a, 63741 Aschaffenburg"
+        },
+        {
+          "RelateCity": "Hanau",
+          "Distance": "24",
+          "Address": "Martin-Luther-King-Straße 4, 63452 Hanau"
+        },
+        {
+          "RelateCity": "Offenbach",
+          "Distance": "31",
+          "Address": "Sprendlinger Landstraße 173 a, 63069 Offenbach am Main"
+        },
+        {
+          "RelateCity": "Darmstadt",
+          "Distance": "37",
+          "Address": "Burandenberg Straße 97 64293"
+        }
+      ],
+      "CityName": "Bochum"
+    }
+  ]
+}

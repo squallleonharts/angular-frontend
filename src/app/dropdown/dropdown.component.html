@@ -1,0 +1,85 @@
+    <div class="col-md-4 col-xs-12">
+      <h4>JSON Api</h4>
+      <div class="form-group">
+        <label>Select Brand</label>
+        <select class="form-control" (change)="onChangeBrandApi($event.target.value)">
+          <option value="-1">--Select Brand--</option>
+          <option *ngFor="let brandI of brandapiInformation; let i = index" value="{{ i }}">{{ brandI.BrandName }}
+          </option>
+        </select>
+      </div>
+
+      <!-- <input type="text" name="newBrand" id="newBrand" value="{{ modelapiInfo[0].Year }}"> -->
+      <input type="text" hidden name="myBrand" id="myBrand" value="{{ selectedBrand }}">
+
+      <div class="form-group">
+        <label>Select Model</label>
+        <select class="form-control" (change)="onChangeModelApi($event.target.value)">
+          <option *ngIf="modelapiInfo == ''" value="-1">--Select Model--</option>
+          <option *ngFor="let model of modelapiInfo; let j = index" value="{{ j }}">{{ model.ModelName }}</option>
+        </select>
+      </div>
+
+      <input type="text" hidden name="myModel" id="myModel" value="{{ selectedModel }}">
+
+      <div class="form-group">
+        <label>Select Year</label>
+        <select class="form-control" (change)="onChangeYearApi($event.target.value)">
+          <option *ngIf="yearapiInfo == ''" value="-1">--Select Year--</option>
+          <option *ngFor="let year of yearapiInfo; let k = index" value="{{ k }}">{{ year.YearName }}</option>
+        </select>
+      </div>
+
+      <input type="text" hidden name="myYear" id="myYear" value="{{ selectedYear }}">
+
+    </div>
+
+    <div class="col-md-8 col-xs-12" *ngIf="modelapiInfo != ''">
+      <h4>Select detail</h4>
+      <div class="col-md-6">
+
+
+        <div class="form-group">
+          <label>Select Design</label>
+          <select class="form-control" (change)="onChangeDesignApi($event.target.value)">
+            <option *ngIf="designapiInfo == ''" value="-1">--Select Design--</option>
+            <option *ngFor="let design of designapiInfo; let d = index" value="{{ d }}">{{ design.DesignName }}</option>
+          </select>
+        </div>
+
+        <input type="text" hidden name="myDesign" id="myDesign" value="{{ selectedDesign }}">
+
+        <div class="form-group">
+          <label>Select TheModel</label>
+          <select class="form-control" (change)="onChangeTheModelApi($event.target.value)">
+            <option *ngIf="themodelapiInfo == ''" value="-1">--Select TheModel--</option>
+            <option *ngFor="let themodel of themodelapiInfo; let t = index" value="{{ t }}">{{ themodel.TheModelName }}
+            </option>
+          </select>
+        </div>
+
+        <input type="text" hidden name="myTheModel" id="myTheModel" value="{{ selectedTheModel }}">
+
+        <div class="form-group">
+          <label>Select Type</label>
+          <select class="form-control" (change)="onChangeTypeApi($event.target.value)">
+            <option *ngIf="typeapiInfo == ''" value="-1">--Select Type--</option>
+            <option *ngFor="let type of typeapiInfo; let nn = index" value="{{ nn }}">{{ type }}
+            </option>
+          </select>
+        </div>
+
+        <input type="text" hidden name="myType" id="myType" value="{{ selectedType }}">
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <label>Select Kilometre</label>
+          <select class="form-control" (change)="onChangeTypeApi($event.target.value)" #status5>
+            <option *ngFor="let kilo of kilometreApi; let m = index" value="{{ m }}">{{ kilo }}
+            </option>
+          </select>
+        </div>
+
+        <input type="text" hidden name="myKilometre" id="myKilometre" value="{{ kilometreApi[status5.value] }}">
+      </div>
+    </div>

@@ -1,0 +1,41 @@
+<!--The content below is only a placeholder and can be replaced.-->
+
+<div class="container pt-1">
+  <div class="center row">
+    <h1 class="blue-text">Car Appointment</h1>
+  </div>
+
+  <div class="row nav-tabs white">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s2">
+          <a class="nav-link" [ngClass]="{'active':tab==1}" (click)="tab=1">Bewerten</a>
+        </li>
+        <li class="tab col s2">
+          <a class="nav-link" [ngClass]="{'active':tab==2}" (click)="tab=2">Termin buchen</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <form (submit)="sendData($event)">
+    <!-- <div class="row white content" *ngIf="tab==1"> -->
+    <div class="row white content" [ngClass]="{'divtoggle':tab==2}">
+      <div class="col s12 pt-1">
+        <app-dropdown></app-dropdown>
+      </div>
+    </div>
+
+    <div class="row white content" [ngClass]="{'divtoggle':tab==1}">
+      <div class="col s12">
+        <app-termin></app-termin>
+      </div>
+    </div>
+
+    <div class="center" style="padding:20px;">
+      <button mat-raised-button [ngClass]="{'divtoggle':tab==2}" color="primary" type="button" (click)="func()">Book an
+        appointment</button>
+    </div>
+
+  </form>
+</div>
