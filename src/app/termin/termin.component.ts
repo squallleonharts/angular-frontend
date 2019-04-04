@@ -72,32 +72,6 @@ export class TerminComponent implements OnInit {
     );
   }
 
-  // sendData(event) {
-  //   event.preventDefault();
-  //   const target = event.target;
-  //   const fromcity = target.querySelector("#fromcity").value;
-  //   const tocity = target.querySelector("#tocity").value;
-  //   const todistance = target.querySelector("#todistance").value;
-  //   const toaddress = target.querySelector("#toaddress").value;
-  //   const date = target.querySelector("#date").value;
-  //   const time = target.querySelector("#time").value;
-  //   const firstname = target.querySelector("#firstname").value;
-  //   const lastname = target.querySelector("#lastname").value;
-  //   const phone = target.querySelector("#phone").value;
-  //   const email = target.querySelector("#email").value;
-
-  //   console.log("from : " + fromcity);
-  //   console.log("to : " + tocity);
-  //   console.log("distance : " + todistance);
-  //   console.log("address : " + toaddress);
-  //   console.log("date : " + date);
-  //   console.log("time : " + time);
-  //   console.log("fname : " + firstname);
-  //   console.log("lname : " + lastname);
-  //   console.log("phone : " + phone);
-  //   console.log("email : " + email);
-  // }
-
   onChangeCityApi(cityValue) {
     this.cityApiInfo = this.citiesApiInformation[cityValue.value].City;
 

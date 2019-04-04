@@ -1,6 +1,6 @@
 <!--The content below is only a placeholder and can be replaced.-->
 
-<div class="container pt-1">
+<div class="container pt-1" style="width:30%;">
   <div class="center row">
     <h1 class="blue-text">Car Appointment</h1>
   </div>
@@ -9,32 +9,252 @@
     <div class="col s12">
       <ul class="tabs">
         <li class="tab col s2">
-          <a class="nav-link" [ngClass]="{'active':tab==1}" (click)="tab=1">Bewerten</a>
+          <a class="nav-link" [ngClass]="{'active':tab==1}" (click)="tab=1;step=1;tmp2=true;">Bewerten</a>
         </li>
         <li class="tab col s2">
-          <a class="nav-link" [ngClass]="{'active':tab==2}" (click)="tab=2">Termin buchen</a>
+          <a class="nav-link" [ngClass]="{'active':tab==2}"
+            (click)="tab=2;step=3;selectedBrand='';selectedModel='';selectedYear='';selectedDesign='';selectedTheModel='';selectedType='';">
+            Termin buchen</a>
         </li>
       </ul>
     </div>
   </div>
 
-  <form (submit)="sendData($event)">
+  <form [formGroup]="loginForm" (submit)="sendData($event)">
     <!-- <div class="row white content" *ngIf="tab==1"> -->
     <div class="row white content" [ngClass]="{'divtoggle':tab==2}">
       <div class="col s12 pt-1">
-        <app-dropdown></app-dropdown>
+        <div class="col-md-12 col-xs-12" [ngClass]="{'divtoggle':step==2}">
+          <h4>JSON Api</h4>
+          <div class="form-group">
+            <label>Select Brand</label>
+            <select class="form-control" (change)="onChangeBrandApi($event.target.value)">
+              <option value="-1">--Select Brand--</option>
+              <option *ngFor="let brandI of brandapiInformation; let i = index" value="{{ i }}">
+                {{ brandI.BrandName }}
+              </option>
+            </select>
+          </div>
+
+          <!-- <input type="text" name="newBrand" id="newBrand" value="{{ modelapiInfo[0].Year }}"> -->
+          <input type="text" hidden name="myBrand" id="myBrand" value="{{ selectedBrand }}">
+
+          <div class="form-group">
+            <label>Select Model</label>
+            <select class="form-control" (change)="onChangeModelApi($event.target.value)">
+              <option *ngIf="modelapiInfo == ''" value="-1">--Select Model--</option>
+              <option *ngFor="let model of modelapiInfo; let j = index" value="{{ j }}">{{ model.ModelName }}
+              </option>
+            </select>
+          </div>
+
+          <input type="text" hidden name="myModel" id="myModel" value="{{ selectedModel }}">
+
+          <div class="form-group">
+            <label>Select Year</label>
+            <select class="form-control" (change)="onChangeYearApi($event.target.value)">
+              <option *ngIf="yearapiInfo == ''" value="-1">--Select Year--</option>
+              <option *ngFor="let year of yearapiInfo; let k = index" value="{{ k }}">{{ year.YearName }}</option>
+            </select>
+          </div>
+
+          <input type="text" hidden name="myYear" id="myYear" value="{{ selectedYear }}">
+
+        </div>
+
+        <div class="col-md-12 col-xs-12" [ngClass]="{'divtoggle':step==1}">
+          <h4>Select detail</h4>
+          <div class="col-md-6">
+
+
+            <div class="form-group">
+              <label>Select Design</label>
+              <select class="form-control" (change)="onChangeDesignApi($event.target.value)">
+                <option *ngIf="tmp2 == true || designapiInfo == ''" value="-1">--Select Design--</option>
+                <option *ngFor="let design of designapiInfo; let d = index" value="{{ d }}">{{ design.DesignName }}
+                </option>
+              </select>
+            </div>
+
+            <input type="text" hidden name="myDesign" id="myDesign" value="{{ selectedDesign }}">
+
+            <div class="form-group">
+              <label>Select TheModel</label>
+              <select class="form-control" (change)="onChangeTheModelApi($event.target.value)">
+                <option *ngIf="tmp2 == true || themodelapiInfo == ''" value="-1">--Select TheModel--</option>
+                <option *ngFor="let themodel of themodelapiInfo; let t = index" value="{{ t }}">
+                  {{ themodel.TheModelName }}
+                </option>
+              </select>
+            </div>
+
+            <input type="text" hidden name="myTheModel" id="myTheModel" value="{{ selectedTheModel }}">
+
+            <div class="form-group">
+              <label>Select Type</label>
+              <select class="form-control" (change)="onChangeTypeApi($event.target.value)">
+                <option *ngIf="tmp2 == true || typeapiInfo == ''" value="-1">--Select Type--</option>
+                <option *ngFor="let type of typeapiInfo; let nn = index" value="{{ nn }}">{{ type }}
+                </option>
+              </select>
+            </div>
+
+            <input type="text" hidden name="myType" id="myType" value="{{ selectedType }}">
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Select Kilometre</label>
+              <select class="form-control" (change)="onChangeTypeApi($event.target.value)" #status5>
+                <option *ngFor="let kilo of kilometreApi; let m = index" value="{{ m }}">{{ kilo }}
+                </option>
+              </select>
+            </div>
+
+            <input type="text" hidden name="myKilometre" id="myKilometre" value="{{ kilometreApi[status5.value] }}">
+          </div>
+        </div>
       </div>
     </div>
 
     <div class="row white content" [ngClass]="{'divtoggle':tab==1}">
       <div class="col s12">
-        <app-termin></app-termin>
+        <div class="col-md-12" [ngClass]="{'divtoggle':step==4}">
+          <div class="col-md-12">
+            <h4>Please select the City</h4>
+            <mat-form-field>
+              <mat-select matSearchable placeholder="Stadt auswählen" [(value)]="selected"
+                (selectionChange)="onChangeCityApi($event)">
+                <mat-searchable-input placeholder="Search.."></mat-searchable-input>
+                <ng-container *ngFor="let city of citiesApiInformation; let id=index">
+                  <mat-option *matSearchableItem [value]="id">
+                    {{ city.CityName }}
+                  </mat-option>
+                </ng-container>
+              </mat-select>
+              <span>{{ distanceApiInfo }}</span>
+            </mat-form-field>
+            <input type="text" hidden name="fromcity" id="fromcity" value="{{ relateCityApiInfo }}">
+          </div>
+
+          <mat-radio-group style="display:grid;" class="example-radio-group col-md-12" [(ngModel)]="selectedCity"
+            name="name" #name="ngModel" (change)="onChangeRadioApi($event)">
+            <!-- <br>TODO: remove this: {{ spy.className }} -->
+            <!-- <div [hidden]="name.pristine" class="alert alert-danger">
+      Successful Selected!!!
+    </div> -->
+            <mat-radio-button class="example-radio-button" *ngFor="let c of cityApiInfo; let id_rel=index"
+              [value]="id_rel">
+              <div class="cityDiv">
+                <p>{{ c.RelateCity }} - {{ c.Distance }} km</p>
+                <p>{{ c.Address }}</p>
+              </div>
+            </mat-radio-button>
+          </mat-radio-group>
+          <input type="text" hidden name="tocity" id="tocity" value="{{ radioCity }}">
+          <input type="text" hidden name="todistance" id="todistance" value="{{ radioDistance }}">
+          <input type="text" hidden name="toaddress" id="toaddress" value="{{ radioAddress }}">
+        </div>
+
+        <div class="col-md-12" [ngClass]="{'divtoggle':step==3}">
+          <h4>Please input your detail</h4>
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-select placeholder="Date" #status1 name="dates" id="times" aria-label="Dates"
+                [formControlName]="'dates'">
+                <mat-option *ngFor="let date of dayApi; let id_date=index" value="{{ id_date }}">{{ date }}</mat-option>
+              </mat-select>
+              <mat-error *ngIf="loginForm.get('dates').hasError('required')">
+                Date is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <input type="text" hidden name="date" id="date" value="{{ dayApi[status1.value] }}">
+
+          <div class="col-md-6">
+            <mat-form-field>
+              <mat-select placeholder="Time" #status name="times" id="times" aria-label="Times"
+                [formControlName]="'times'">
+                <mat-option *ngFor="let time of timeApi; let id_time=index" value="{{ id_time }}">{{ time }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="loginForm.get('times').hasError('required')">
+                Time is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <input type="text" hidden name="time" id="time" value="{{ timeApi[status.value] }}">
+
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="firstname" name="firstname" id="firstname" aria-label="Firstname"
+                [formControlName]="'firstname'">
+              <mat-error *ngIf="loginForm.get('firstname').hasError('required')">
+                Firstname is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-6">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="lastname" name="lastname" id="lastname" aria-label="Lastname"
+                [formControlName]="'lastname'">
+              <mat-error *ngIf="loginForm.get('lastname').hasError('required')">
+                Lastname is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-12">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="phone number" name="phone" id="phone" aria-label="Phone"
+                [formControlName]="'phone'">
+              <mat-error *ngIf="loginForm.get('phone').hasError('required')">
+                Phonenumber is required
+              </mat-error>
+              <mat-error *ngIf="loginForm.get('phone').hasError('pattern')">
+                Phonenumber is not valid
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="col-md-12">
+            <mat-form-field class="example-full-width">
+              <input matInput placeholder="email" name="email" id="email" aria-label="Email"
+                [formControlName]="'email'">
+              <mat-error *ngIf="loginForm.get('email').hasError('required')">
+                Email is required
+              </mat-error>
+              <mat-error *ngIf="loginForm.get('email').hasError('email')">
+                Email is not valid
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <!-- <div class="booking">
+            <button mat-raised-button color="primary" type="submit">Book an appointment</button>
+          </div> -->
+        </div>
       </div>
     </div>
 
-    <div class="center" style="padding:20px;">
-      <button mat-raised-button [ngClass]="{'divtoggle':tab==2}" color="primary" type="button" (click)="func()">Book an
-        appointment</button>
+    <div class="center" style="padding:20px;" *ngIf="tmp1==false" [ngClass]="{'divtoggle':tab==2}">
+      <button mat-raised-button color="primary" type="button" [ngClass]="{'divtoggle':step==2}" (click)="func1()">Book
+        an appointment1</button>
+    </div>
+
+    <div class="center" style="padding:20px;" *ngIf="tmp2==false" [ngClass]="{'divtoggle':tab==2}">
+      <button mat-raised-button color="primary" type="button" [ngClass]="{'divtoggle':step==1}" (click)="func2()">Book
+        an appointment2</button>
+    </div>
+
+    <div class="center" style="padding:20px;" *ngIf="tmp3==false" [ngClass]="{'divtoggle':tab==1}">
+      <button mat-raised-button color="primary" type="button" [ngClass]="{'divtoggle':step==4}" (click)="func3()">Book
+        an appointment3</button>
+    </div>
+
+    <div class="center" style="padding:20px;" [ngClass]="{'divtoggle':tab==1}">
+      <button mat-raised-button color="primary" type="submit" [ngClass]="{'divtoggle':step==3}">Book
+        an appointment4</button>
     </div>
 
   </form>
