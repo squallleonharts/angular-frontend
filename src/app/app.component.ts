@@ -291,7 +291,7 @@ export class AppComponent implements OnInit {
 
     var message = "";
 
-    var url = "http://localhost:8001/api/orders";
+    var url = "http://localhost:8000/api/orders";
     axios.post(url, order).then(function(res) {
       var success = false;
       if(res.data[0]) {
@@ -357,7 +357,7 @@ export class AppComponent implements OnInit {
 
     var $this = this;
 
-    var url = "http://localhost:8001/api/carinfo";
+    var url = "http://localhost:8000/api/carinfo";
     axios.post(url, carInfo).then(function(res) {
       
       $this.tab = 2;
