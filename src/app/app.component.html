@@ -7,9 +7,9 @@
 
   <div class="row nav-tabs white">
     <div class="col s12">
-      <ul class="tabs">
+      <ul class="tabs" *ngIf="isShow == 1">
         <li class="tab col s2">
-          <a class="nav-link" [ngClass]="{'active':tab==1}" (click)="tab=1;step=1;tmp2=true;">Bewerten</a>
+          <a class="nav-link" [ngClass]="{'active':tab==1}" (click)="tab=1;step=1;">Bewerten</a>
         </li>
         <li class="tab col s2">
           <a class="nav-link" [ngClass]="{'active':tab==2}"
@@ -20,8 +20,7 @@
     </div>
   </div>
 
-  <form [formGroup]="loginForm" (submit)="sendData($event)">
-    <!-- <div class="row white content" *ngIf="tab==1"> -->
+  <form [formGroup]="basicForm" (submit)="sendFirstData($event)">
     <div class="row white content" [ngClass]="{'divtoggle':tab==2}">
       <div class="col s12 pt-1">
         <div class="col-md-12 col-xs-12" [ngClass]="{'divtoggle':step==2}">
@@ -29,9 +28,9 @@
           <div class="form-group">
             <label>Select Brand</label>
             <select class="form-control" (change)="onChangeBrandApi($event.target.value)">
-              <option value="-1">--Select Brand--</option>
+              <option disabled value="-1">--Select Brand--</option>
               <option *ngFor="let brandI of brandapiInformation; let i = index" value="{{ i }}">
-                {{ brandI.BrandName }}
+                {{ brandI.value }}
               </option>
             </select>
           </div>
@@ -41,9 +40,9 @@
 
           <div class="form-group">
             <label>Select Model</label>
-            <select class="form-control" (change)="onChangeModelApi($event.target.value)">
-              <option *ngIf="modelapiInfo == ''" value="-1">--Select Model--</option>
-              <option *ngFor="let model of modelapiInfo; let j = index" value="{{ j }}">{{ model.ModelName }}
+            <select class="form-control" (change)="onChangeModelApi($event.target.value)" [disabled]="model_disable">
+              <option disabled value="-1">--Select Model--</option>
+              <option *ngFor="let model of modelapiInfo; let j = index" value="{{ j }}">{{ model.value }}
               </option>
             </select>
           </div>
@@ -52,8 +51,8 @@
 
           <div class="form-group">
             <label>Select Year</label>
-            <select class="form-control" (change)="onChangeYearApi($event.target.value)">
-              <option *ngIf="yearapiInfo == ''" value="-1">--Select Year--</option>
+            <select class="form-control" (change)="onChangeYearApi($event.target.value)" [disabled]="year_disable">
+              <option disabled value="-1">--Select Year--</option>
               <option *ngFor="let year of yearapiInfo; let k = index" value="{{ k }}">{{ year.YearName }}</option>
             </select>
           </div>
@@ -70,7 +69,7 @@
             <div class="form-group">
               <label>Select Design</label>
               <select class="form-control" (change)="onChangeDesignApi($event.target.value)">
-                <option *ngIf="tmp2 == true || designapiInfo == ''" value="-1">--Select Design--</option>
+                <option *ngIf="designapiInfo == ''" value="-1">--Select Design--</option>
                 <option *ngFor="let design of designapiInfo; let d = index" value="{{ d }}">{{ design.DesignName }}
                 </option>
               </select>
@@ -81,7 +80,7 @@
             <div class="form-group">
               <label>Select TheModel</label>
               <select class="form-control" (change)="onChangeTheModelApi($event.target.value)">
-                <option *ngIf="tmp2 == true || themodelapiInfo == ''" value="-1">--Select TheModel--</option>
+                <option *ngIf="themodelapiInfo == ''" value="-1">--Select TheModel--</option>
                 <option *ngFor="let themodel of themodelapiInfo; let t = index" value="{{ t }}">
                   {{ themodel.TheModelName }}
                 </option>
@@ -93,7 +92,7 @@
             <div class="form-group">
               <label>Select Type</label>
               <select class="form-control" (change)="onChangeTypeApi($event.target.value)">
-                <option *ngIf="tmp2 == true || typeapiInfo == ''" value="-1">--Select Type--</option>
+                <option disabled value="-1">--Select Type--</option>
                 <option *ngFor="let type of typeapiInfo; let nn = index" value="{{ nn }}">{{ type }}
                 </option>
               </select>
@@ -104,18 +103,43 @@
           <div class="col-md-6">
             <div class="form-group">
               <label>Select Kilometre</label>
-              <select class="form-control" (change)="onChangeTypeApi($event.target.value)" #status5>
+              <select class="form-control" (change)="onChangeKiloApi($event.target.value)" #status5 [disabled]="kilo_disable">
+                <option disabled value="-1">--Select Kilometre--</option>
                 <option *ngFor="let kilo of kilometreApi; let m = index" value="{{ m }}">{{ kilo }}
                 </option>
               </select>
             </div>
 
             <input type="text" hidden name="myKilometre" id="myKilometre" value="{{ kilometreApi[status5.value] }}">
+
+            <div>
+              <mat-form-field class="example-full-width">
+                <input matInput placeholder="email" name="basicemail" id="basicemail" aria-label="Basic Email" [formControlName]="'basicemail'">
+                <mat-error *ngIf="basicForm.get('basicemail').hasError('required')">
+                  Email is required
+                </mat-error>
+                <mat-error *ngIf="basicForm.get('basicemail').hasError('email')">
+                  Email is not valid
+                </mat-error>
+              </mat-form-field>
+            </div>
           </div>
         </div>
       </div>
     </div>
 
+    <div class="center" style="padding:20px;" [ngClass]="{'divtoggle':tab==2}">
+      <button mat-raised-button color="primary" [disabled]="tmp1" type="button" [ngClass]="{'divtoggle':step==2}" (click)="func1()">Book
+        an appointment1</button>
+    </div>
+
+    <div class="center" style="padding:20px;" [ngClass]="{'divtoggle':tab==2}">
+      <button mat-raised-button color="primary" [disabled]="tmp2" [ngClass]="{'divtoggle':step==1}" type="submit">Book
+        an appointment2</button>
+    </div>
+  </form>
+
+  <form [formGroup]="loginForm" (submit)="sendData($event)">
     <div class="row white content" [ngClass]="{'divtoggle':tab==1}">
       <div class="col s12">
         <div class="col-md-12" [ngClass]="{'divtoggle':step==4}">
@@ -136,12 +160,12 @@
             <input type="text" hidden name="fromcity" id="fromcity" value="{{ relateCityApiInfo }}">
           </div>
 
-          <mat-radio-group style="display:grid;" class="example-radio-group col-md-12" [(ngModel)]="selectedCity"
-            name="name" #name="ngModel" (change)="onChangeRadioApi($event)">
+          <mat-radio-group style="display:grid;" class="example-radio-group col-md-12" 
+            name="name" (change)="onChangeRadioApi($event)">
             <!-- <br>TODO: remove this: {{ spy.className }} -->
             <!-- <div [hidden]="name.pristine" class="alert alert-danger">
-      Successful Selected!!!
-    </div> -->
+              Successful Selected!!!
+            </div> -->
             <mat-radio-button class="example-radio-button" *ngFor="let c of cityApiInfo; let id_rel=index"
               [value]="id_rel">
               <div class="cityDiv">
@@ -237,16 +261,6 @@
       </div>
     </div>
 
-    <div class="center" style="padding:20px;" *ngIf="tmp1==false" [ngClass]="{'divtoggle':tab==2}">
-      <button mat-raised-button color="primary" type="button" [ngClass]="{'divtoggle':step==2}" (click)="func1()">Book
-        an appointment1</button>
-    </div>
-
-    <div class="center" style="padding:20px;" *ngIf="tmp2==false" [ngClass]="{'divtoggle':tab==2}">
-      <button mat-raised-button color="primary" type="button" [ngClass]="{'divtoggle':step==1}" (click)="func2()">Book
-        an appointment2</button>
-    </div>
-
     <div class="center" style="padding:20px;" *ngIf="tmp3==false" [ngClass]="{'divtoggle':tab==1}">
       <button mat-raised-button color="primary" type="button" [ngClass]="{'divtoggle':step==4}" (click)="func3()">Book
         an appointment3</button>
@@ -259,3 +273,6 @@
 
   </form>
 </div>
+
+<notifier-container></notifier-container>
+

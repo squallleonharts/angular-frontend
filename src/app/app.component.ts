@@ -1,6 +1,7 @@
 import { OnInit } from "@angular/core";
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { NotifierService } from 'angular-notifier';
 import axios from "axios";
 
 import { BrandService } from "./brand.service";
@@ -11,15 +12,28 @@ import { BrandService } from "./brand.service";
   styleUrls: ["./app.component.css"]
 })
 export class AppComponent implements OnInit {
+  private notifier: NotifierService;
+
+  basicForm: FormGroup;
   loginForm: FormGroup;
 
   title = "app";
   tab = 1;
   step = 1;
 
+  // for booking button
   tmp1 = true;
   tmp2 = true;
   tmp3 = true;
+
+  // for disabled
+  model_disable = true;
+  year_disable = true;
+  kilo_disable = true;
+  email_disable = true;
+
+  // for show/hide tab
+  isShow = 1;
 
   // when tab == 1
   brandapiInformation: any[] = [];
@@ -52,7 +66,16 @@ export class AppComponent implements OnInit {
   radioDistance: any[] = [];
   radioAddress: any[] = [];
 
+
+  constructor(private brand: BrandService, private formBuilder: FormBuilder, private notifierService: NotifierService) {
+    this.notifier = notifierService;
+  }
+
   ngOnInit() {
+
+    this.basicForm = this.formBuilder.group({
+      basicemail: [{value: '', disabled: true}, [Validators.required, Validators.email]]
+    });
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
       phone: [
@@ -71,9 +94,8 @@ export class AppComponent implements OnInit {
     // when tab == 2
     this.getCities();
     this.getTimes();
-  }
 
-  constructor(private brand: BrandService, private formBuilder: FormBuilder) {}
+  }
 
   // when tab == 1
   getCountries() {
@@ -143,27 +165,27 @@ export class AppComponent implements OnInit {
 
   // when tab == 1
   onChangeBrandApi(brandValue) {
-    this.selectedBrand = this.brandapiInformation[brandValue].BrandName;
+    this.selectedBrand = this.brandapiInformation[brandValue].value;
 
-    this.modelapiInfo = this.brandapiInformation[brandValue].Model;
-    this.yearapiInfo = this.modelapiInfo[0].Year;
+    this.modelapiInfo = this.brandapiInformation[brandValue].main_types;
+    this.yearapiInfo = this.modelapiInfo[0].buillt_dates;
     this.designapiInfo = this.yearapiInfo[0].Design;
     this.themodelapiInfo = this.designapiInfo[0].TheModel;
     this.typeapiInfo = this.themodelapiInfo[0].TheModelType;
 
-    this.selectedModel = this.modelapiInfo[0].ModelName;
+    this.selectedModel = this.modelapiInfo[0].value;
     this.selectedYear = this.yearapiInfo[0].YearName;
     this.selectedDesign = this.designapiInfo[0].DesignName;
     this.selectedTheModel = this.themodelapiInfo[0].TheModelName;
     this.selectedType = this.typeapiInfo[0];
 
-    this.tmp1 = false;
+    this.model_disable = false;
   }
 
   onChangeModelApi(modelValue) {
-    this.selectedModel = this.modelapiInfo[modelValue].ModelName;
+    this.selectedModel = this.modelapiInfo[modelValue].value;
 
-    this.yearapiInfo = this.modelapiInfo[modelValue].Year;
+    this.yearapiInfo = this.modelapiInfo[modelValue].buillt_dates;
     this.designapiInfo = this.yearapiInfo[0].Design;
     this.themodelapiInfo = this.designapiInfo[0].TheModel;
     this.typeapiInfo = this.themodelapiInfo[0].TheModelType;
@@ -172,6 +194,8 @@ export class AppComponent implements OnInit {
     this.selectedDesign = this.designapiInfo[0].DesignName;
     this.selectedTheModel = this.themodelapiInfo[0].TheModelName;
     this.selectedType = this.typeapiInfo[0];
+
+    this.year_disable = false;
   }
 
   onChangeYearApi(yearValue) {
@@ -184,6 +208,8 @@ export class AppComponent implements OnInit {
     this.selectedDesign = this.designapiInfo[0].DesignName;
     this.selectedTheModel = this.themodelapiInfo[0].TheModelName;
     this.selectedType = this.typeapiInfo[0];
+
+    this.tmp1 = false;
   }
 
   onChangeDesignApi(designValue) {
@@ -194,8 +220,6 @@ export class AppComponent implements OnInit {
 
     this.selectedTheModel = this.themodelapiInfo[0].TheModelName;
     this.selectedType = this.typeapiInfo[0];
-
-    this.tmp2 = false;
   }
 
   onChangeTheModelApi(themodelValue) {
@@ -208,6 +232,14 @@ export class AppComponent implements OnInit {
 
   onChangeTypeApi(typeValue) {
     this.selectedType = this.typeapiInfo[typeValue];
+
+    this.kilo_disable = false;
+  }
+
+  onChangeKiloApi(kiloValue) {
+    this.basicForm.controls['basicemail'].enable()
+
+    this.tmp2 = false;
   }
 
   // when tab == 2
@@ -222,10 +254,6 @@ export class AppComponent implements OnInit {
     this.radioDistance = this.cityApiInfo[radioValue.value].Distance;
     this.radioAddress = this.cityApiInfo[radioValue.value].Address;
 
-    console.log(this.radioCity);
-    console.log(this.radioDistance);
-    console.log(this.radioAddress);
-
     this.tmp3 = false;
   }
 
@@ -233,14 +261,7 @@ export class AppComponent implements OnInit {
     if (!this.loginForm.valid) return false;
     event.preventDefault();
     const target = event.target;
-    // console.log(target);
-    const myDesign = target.querySelector("#myDesign").value;
-    const myTheModel = target.querySelector("#myTheModel").value;
-    const myType = target.querySelector("#myType").value;
-    const myKilometre = target.querySelector("#myKilometre").value;
-    const myBrand = target.querySelector("#myBrand").value;
-    const myModel = target.querySelector("#myModel").value;
-    const myYear = target.querySelector("#myYear").value;
+    
     const fromcity = target.querySelector("#fromcity").value;
     const tocity = target.querySelector("#tocity").value;
     const todistance = target.querySelector("#todistance").value;
@@ -252,33 +273,8 @@ export class AppComponent implements OnInit {
     const phone = target.querySelector("#phone").value;
     const email = target.querySelector("#email").value;
 
-    console.log(myDesign);
-    console.log(myTheModel);
-    console.log(myType);
-    console.log(myKilometre);
-    console.log(myBrand);
-    console.log(myModel);
-    console.log(myYear);
-    console.log(fromcity);
-    console.log(tocity);
-    console.log(todistance);
-    console.log(toaddress);
-    console.log(date);
-    console.log(time);
-    console.log(firstname);
-    console.log(lastname);
-    console.log(phone);
-    console.log(email);
-
     // send http request to backend.
     var order = {
-      brand: myBrand,
-      model: myModel,
-      yearRegisterd: myYear,
-      design: myDesign,
-      modelDetail: myTheModel,
-      type: myType,
-      kilometre: myKilometre,
       from: fromcity,
       to: tocity,
       distance: todistance,
@@ -291,32 +287,100 @@ export class AppComponent implements OnInit {
       email: email
     };
 
-    var url = "http://localhost:8000/api/orders";
-    axios.post(url, order).then(function(response) {
-      console.log(response);
-      // if(response.data != null && response.data.id > 0) {
-      //   // this.success = true;
-      //   setTimeout(() => {
-      //     // this.success = false;
-      //   }, 2000);
-      // }
+    var $this = this;
+
+    var message = "";
+
+    var url = "http://localhost:8001/api/orders";
+    axios.post(url, order).then(function(res) {
+      var success = false;
+      if(res.data[0]) {
+        message += "Appointment booking success. ";
+      }
+      else {
+        message += "Appointment booking failure. ";
+      }
+
+      if(res.data[1]) {
+        message += "Mail sent.";
+      }
+      else {
+        message += "Mail not sent.";
+      }
+
+      if(res.data[0] && res.data[1]) $this.notifier.notify( 'success', message );
+      else $this.notifier.notify( 'error', message );
+    }).catch(function (error) {
+      message = "Network error.";
+      $this.notifier.notify( 'error', message );
     });
   }
 
   func1() {
+    this.isShow = 2;
     this.tab = 1;
     this.step = 2;
-    this.tmp2 = true;
-    this.typeapiInfo = [];
-    this.themodelapiInfo = [];
+    if(this.tmp2) {
+      this.tmp2 = true;
+    }
   }
 
-  func2() {
-    this.tab = 2;
-    this.step = 3;
+  sendFirstData(event) {
+    if (!this.basicForm.valid) return false;
+
+    this.isShow = 1;
+
+    event.preventDefault();
+    const target = event.target;
+    
+    const myBrand = target.querySelector("#myBrand").value;
+    const myModel = target.querySelector("#myModel").value;
+    const myYear = target.querySelector("#myYear").value;
+    const myDesign = target.querySelector("#myDesign").value;
+    const myTheModel = target.querySelector("#myTheModel").value;
+    const myType = target.querySelector("#myType").value;
+    const myKilometre = target.querySelector("#myKilometre").value;
+    const basicemail = target.querySelector("#basicemail").value;
+
+    var carInfo = {
+      brand: myBrand,
+      model: myModel,
+      year: myYear,
+      design: myDesign,
+      modelDetail: myTheModel,
+      type: myType,
+      kilometre: myKilometre,
+      email: basicemail
+    };
+    
+    var message = "";
+
+    var $this = this;
+
+    var url = "http://localhost:8001/api/carinfo";
+    axios.post(url, carInfo).then(function(res) {
+      
+      $this.tab = 2;
+      $this.step = 3;
+
+      if(res.data[0]) {
+        message += "Mail sent.";
+        $this.notifier.notify( 'success', message );
+      }
+      else {
+        message += "Mail not sent.";
+        $this.notifier.notify( 'error', message );
+      }
+      
+    }).catch(function (error) {
+      message = "Network error.";
+      $this.notifier.notify( 'error', message );
+    });
   }
 
   func3() {
+    this.isShow = 2;
+
     this.tab = 2;
     this.step = 4;
   }

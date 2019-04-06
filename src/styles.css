@@ -1,5 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import "angular-notifier/styles/core.css";
+@import "angular-notifier/styles/themes/theme-material.css";
+@import "angular-notifier/styles/types/type-default.css";
+@import "angular-notifier/styles/types/type-success.css";
+@import "angular-notifier/styles/types/type-error.css";
+
 
 body {
   font-family: Roboto, "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
