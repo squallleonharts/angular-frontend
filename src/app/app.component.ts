@@ -1,10 +1,12 @@
 import { OnInit } from "@angular/core";
 import { Component } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { NotifierService } from 'angular-notifier';
+import { NotifierService } from "angular-notifier";
 import axios from "axios";
 
 import { BrandService } from "./brand.service";
+
+const apiBaseUrl = "http://localhost:8000/api/";
 
 @Component({
   selector: "app-root",
@@ -66,15 +68,20 @@ export class AppComponent implements OnInit {
   radioDistance: any[] = [];
   radioAddress: any[] = [];
 
-
-  constructor(private brand: BrandService, private formBuilder: FormBuilder, private notifierService: NotifierService) {
+  constructor(
+    private brand: BrandService,
+    private formBuilder: FormBuilder,
+    private notifierService: NotifierService
+  ) {
     this.notifier = notifierService;
   }
 
   ngOnInit() {
-
     this.basicForm = this.formBuilder.group({
-      basicemail: [{value: '', disabled: true}, [Validators.required, Validators.email]]
+      basicemail: [
+        { value: "", disabled: true },
+        [Validators.required, Validators.email]
+      ]
     });
     this.loginForm = this.formBuilder.group({
       email: ["", [Validators.required, Validators.email]],
@@ -94,7 +101,6 @@ export class AppComponent implements OnInit {
     // when tab == 2
     this.getCities();
     this.getTimes();
-
   }
 
   // when tab == 1
@@ -237,7 +243,7 @@ export class AppComponent implements OnInit {
   }
 
   onChangeKiloApi(kiloValue) {
-    this.basicForm.controls['basicemail'].enable()
+    this.basicForm.controls["basicemail"].enable();
 
     this.tmp2 = false;
   }
@@ -261,7 +267,7 @@ export class AppComponent implements OnInit {
     if (!this.loginForm.valid) return false;
     event.preventDefault();
     const target = event.target;
-    
+
     const fromcity = target.querySelector("#fromcity").value;
     const tocity = target.querySelector("#tocity").value;
     const todistance = target.querySelector("#todistance").value;
@@ -291,36 +297,38 @@ export class AppComponent implements OnInit {
 
     var message = "";
 
-    var url = "http://localhost:8001/api/orders";
-    axios.post(url, order).then(function(res) {
-      var success = false;
-      if(res.data[0]) {
-        message += "Appointment booking success. ";
-      }
-      else {
-        message += "Appointment booking failure. ";
-      }
+    var url = apiBaseUrl + "orders";
+    axios
+      .post(url, order)
+      .then(function(res) {
+        var success = false;
+        if (res.data[0]) {
+          message += "Appointment booking success. ";
+        } else {
+          message += "Appointment booking failure. ";
+        }
 
-      if(res.data[1]) {
-        message += "Mail sent.";
-      }
-      else {
-        message += "Mail not sent.";
-      }
+        if (res.data[1]) {
+          message += "Mail sent.";
+        } else {
+          message += "Mail not sent.";
+        }
 
-      if(res.data[0] && res.data[1]) $this.notifier.notify( 'success', message );
-      else $this.notifier.notify( 'error', message );
-    }).catch(function (error) {
-      message = "Network error.";
-      $this.notifier.notify( 'error', message );
-    });
+        if (res.data[0] && res.data[1])
+          $this.notifier.notify("success", message);
+        else $this.notifier.notify("error", message);
+      })
+      .catch(function(error) {
+        message = "Network error.";
+        $this.notifier.notify("error", message);
+      });
   }
 
   func1() {
     this.isShow = 2;
     this.tab = 1;
     this.step = 2;
-    if(this.tmp2) {
+    if (this.tmp2) {
       this.tmp2 = true;
     }
   }
@@ -332,7 +340,7 @@ export class AppComponent implements OnInit {
 
     event.preventDefault();
     const target = event.target;
-    
+
     const myBrand = target.querySelector("#myBrand").value;
     const myModel = target.querySelector("#myModel").value;
     const myYear = target.querySelector("#myYear").value;
@@ -352,30 +360,30 @@ export class AppComponent implements OnInit {
       kilometre: myKilometre,
       email: basicemail
     };
-    
+
     var message = "";
 
     var $this = this;
 
-    var url = "http://localhost:8001/api/carinfo";
-    axios.post(url, carInfo).then(function(res) {
-      
-      $this.tab = 2;
-      $this.step = 3;
+    var url = apiBaseUrl + "carinfo";
+    axios
+      .post(url, carInfo)
+      .then(function(res) {
+        $this.tab = 2;
+        $this.step = 3;
 
-      if(res.data[0]) {
-        message += "Mail sent.";
-        $this.notifier.notify( 'success', message );
-      }
-      else {
-        message += "Mail not sent.";
-        $this.notifier.notify( 'error', message );
-      }
-      
-    }).catch(function (error) {
-      message = "Network error.";
-      $this.notifier.notify( 'error', message );
-    });
+        if (res.data[0]) {
+          message += "Mail sent.";
+          $this.notifier.notify("success", message);
+        } else {
+          message += "Mail not sent.";
+          $this.notifier.notify("error", message);
+        }
+      })
+      .catch(function(error) {
+        message = "Network error.";
+        $this.notifier.notify("error", message);
+      });
   }
 
   func3() {
