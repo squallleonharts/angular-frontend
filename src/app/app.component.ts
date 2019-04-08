@@ -297,7 +297,7 @@ export class AppComponent implements OnInit {
 
     var message = "";
 
-    var url = apiBaseUrl + "orders";
+var url = apiBaseUrl + "orders";
     axios
       .post(url, order)
       .then(function(res) {
@@ -307,7 +307,6 @@ export class AppComponent implements OnInit {
         } else {
           message += "Appointment booking failure. ";
         }
-
         if (res.data[1]) {
           message += "Mail sent.";
         } else {
@@ -371,7 +370,6 @@ export class AppComponent implements OnInit {
       .then(function(res) {
         $this.tab = 2;
         $this.step = 3;
-
         if (res.data[0]) {
           message += "Mail sent.";
           $this.notifier.notify("success", message);
