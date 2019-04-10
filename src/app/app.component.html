@@ -28,7 +28,7 @@
           <div class="form-group">
             <label>Select Brand</label>
             <select class="form-control" (change)="onChangeBrandApi($event.target.value)">
-              <option disabled value="-1">--Select Brand--</option>
+              <option value="-1">--Select Brand--</option>
               <option *ngFor="let brandI of brandapiInformation; let i = index" value="{{ i }}">
                 {{ brandI.value }}
               </option>
@@ -40,8 +40,8 @@
 
           <div class="form-group">
             <label>Select Model</label>
-            <select class="form-control" (change)="onChangeModelApi($event.target.value)" [disabled]="model_disable">
-              <option disabled value="-1">--Select Model--</option>
+            <select class="form-control" [value]="_model" (change)="onChangeModelApi($event.target.value)" [disabled]="model_disable">
+              <option value="-1">--Select Model--</option>
               <option *ngFor="let model of modelapiInfo; let j = index" value="{{ j }}">{{ model.value }}
               </option>
             </select>
@@ -51,8 +51,8 @@
 
           <div class="form-group">
             <label>Select Year</label>
-            <select class="form-control" (change)="onChangeYearApi($event.target.value)" [disabled]="year_disable">
-              <option disabled value="-1">--Select Year--</option>
+            <select class="form-control" [value]="_year" (change)="onChangeYearApi($event.target.value)" [disabled]="year_disable">
+              <option value="-1">--Select Year--</option>
               <option *ngFor="let year of yearapiInfo; let k = index" value="{{ k }}">{{ year.YearName }}</option>
             </select>
           </div>

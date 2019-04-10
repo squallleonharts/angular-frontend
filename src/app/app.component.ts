@@ -16,6 +16,9 @@ const apiBaseUrl = "http://localhost:8000/api/";
 export class AppComponent implements OnInit {
   private notifier: NotifierService;
 
+  _model = -1;
+  _year = -1;
+
   basicForm: FormGroup;
   loginForm: FormGroup;
 
@@ -169,8 +172,17 @@ export class AppComponent implements OnInit {
     );
   }
 
+  init() {
+    this.modelapiInfo = [];
+    this.yearapiInfo = [];
+    this.designapiInfo = [];
+    this.themodelapiInfo = [];
+    this.typeapiInfo = [];
+  }
+
   // when tab == 1
   onChangeBrandApi(brandValue) {
+    this.init();
     this.selectedBrand = this.brandapiInformation[brandValue].value;
 
     this.modelapiInfo = this.brandapiInformation[brandValue].main_types;
@@ -180,13 +192,17 @@ export class AppComponent implements OnInit {
     this.typeapiInfo = this.themodelapiInfo[0].TheModelType;
 
     this.selectedModel = this.modelapiInfo[0].value;
+    console.log(this.selectedModel);
     this.selectedYear = this.yearapiInfo[0].YearName;
     this.selectedDesign = this.designapiInfo[0].DesignName;
     this.selectedTheModel = this.themodelapiInfo[0].TheModelName;
     this.selectedType = this.typeapiInfo[0];
 
+    this._model = -1;
+    this._year = -1;
     this.model_disable = false;
     this.year_disable = true;
+    
   }
 
   onChangeModelApi(modelValue) {
@@ -202,6 +218,7 @@ export class AppComponent implements OnInit {
     this.selectedTheModel = this.themodelapiInfo[0].TheModelName;
     this.selectedType = this.typeapiInfo[0];
 
+    this._year = -1;
     this.year_disable = false;
   }
 
