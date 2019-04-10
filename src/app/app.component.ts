@@ -186,6 +186,7 @@ export class AppComponent implements OnInit {
     this.selectedType = this.typeapiInfo[0];
 
     this.model_disable = false;
+    this.year_disable = true;
   }
 
   onChangeModelApi(modelValue) {
